@@ -36,16 +36,65 @@ public class App {
                 case 1:
                     // TODO: menghapus nomor antrian dari antrianReguler dan
                     // menambahkannya ke antrianSelesai
+                    nomorAntri = antrianReguler.get(0);
+                    antrianReguler.remove(0);
+                    antrianSelesai.add(nomorAntri);
+                    System.out.println("Nomor antrian " + nomorAntri + " telah selesai dilayani");
                     break;
                 case 2:
                     // TODO: menghapus nomor antrian dari antrianReguler dan
                     // menambahkannya ke antrianPending
+                    nomorAntri = antrianReguler.get(0);
+                    antrianReguler.remove(0);
+                    antrianPending.add(nomorAntri);
+                    System.out.println("Nomor antrian " + nomorAntri + " telah ditambahkan ke antrian pending");
                     break;
                 case 3:
                     // TODO :
                     // menampilkan antrianPending
                     // melakukan pencarian nomor antrian pada antrianPending
-                    break;
+                    if (antrianPending.size() < 1) {
+                        System.out.println("TIDAK ADA ANTRIAN PENDING");
+                        break;
+                    }
+
+                    boolean ulangi = true;
+                    while (ulangi) {
+                        System.out.println("DAFTAR NOMOR ANTRIAN PENDING:");
+                        for (Integer nomor : antrianPending) {
+                            System.out.print(nomor + " ");
+                        }
+                        System.out.println();
+                        System.out.println("[0] Kembali");
+                        System.out.println("[1] Pilih nomor antrian");
+                        System.out.print("Pilihan aksi: ");
+                        pilihan = input.nextInt();
+
+                        switch (pilihan) {
+                            case 0:
+                                ulangi = false;
+                                break;
+                            case 1:
+                                System.out.print("Input nomor antrian: ");
+                                nomorAntri = input.nextInt();
+
+                                if (antrianPending.indexOf(nomorAntri) < 0) {
+                                    System.out.println("NOMOR ANTRIAN TIDAK DITEMUKAN");
+                                    break;
+                                }
+
+                                int indexNomorAntri = antrianPending.indexOf(nomorAntri);
+                                antrianPending.remove(indexNomorAntri);
+                                antrianSelesai.add(nomorAntri);
+
+                                System.out.println("Nomor antrian " + nomorAntri
+                                        + " telah dihapus dari antrian pending dan telah dimasukkan ke dalam antrian selesai.");
+                                ulangi = false;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 default:
                     break;
             }
